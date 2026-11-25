@@ -43,7 +43,7 @@ Estimates assume about 14 hours per week. Do not start a phase until the previou
 
 **Phase 1 — Python fundamentals and environment**
 - [x] Python 3.12+ installed. The package/venv tool is decided (TD-015: uv) and recorded. (2026-11-25: uv 0.13.10, CPython 3.12.16)
-- [ ] `backend/` with `pyproject.toml` and a virtual environment. `.gitignore` covers `.venv`, `.env`, `__pycache__`, uploads and data outputs.
+- [x] `backend/` created with `uv init` (`pyproject.toml`, `.python-version` = 3.12, `src/backend/` package) and a root `.gitignore` covering `.venv`, `.env`, `__pycache__`, uploads and data outputs. (The `.venv` is not created yet; `uv sync` / `uv run` will create it.)
 - [ ] Fundamentals practised in project-relevant code: types, collections, comprehensions, functions, dataclasses, classes/OOP, exceptions, modules/packages, file I/O with `pathlib`, an intro to typing/`Protocol`, and an intro to `async`.
 - [ ] A small pure-Python module (no web framework), such as a plain-text synthetic resume → `dataclass` parser, with pytest tests that the developer wrote with guidance.
 - [ ] The linter/formatter is decided (TD-016).
@@ -103,6 +103,8 @@ Estimates assume about 14 hours per week. Do not start a phase until the previou
 
 - None. (The Python 3.12 blocker was resolved on 2026-11-25 through uv.)
 
+**Layout note:** `uv init --package` created `backend/src/backend/`, but `ARCHITECTURE.md` plans `backend/app/`. Decide at the start of Phase 2 (the TD-014 confirmation) whether to rename it to `app/` or update the docs. Do not change either silently.
+
 ## 7. Known issues
 
 - **Workspace root:** the Git repository is `Hiresense_ai/`, inside the `zaid_fastapi/` folder. Start Claude Code **inside `Hiresense_ai/`**, so that `CLAUDE.md` and `.claude/skills/` are loaded automatically.
@@ -159,3 +161,10 @@ Estimates assume about 14 hours per week. Do not start a phase until the previou
 - **Known issues:** None.
 - **Incomplete:** The `backend/` project is not created yet. Nothing is committed.
 - **Next step:** Phase 1 Step 2: `uv init` the `backend/` project and add `.gitignore` (see §10).
+
+### 2026-11-25 — Phase 1 — Step 2: backend project committed
+- **Done:** The developer merged PR #1 (Phase 0). The developer created `backend/` with `uv init`. Claude added a root `.gitignore` and committed both on `feat/phase-1-backend-setup` (PR #2).
+- **Files changed:** .gitignore, backend/{pyproject.toml,.python-version,README.md,src/backend/__init__.py}, docs/PROJECT_STATE.md
+- **Commands run / results:** `git pull` on main → at merge commit 71cee70. No Python code was run.
+- **Known issues:** The `src/backend` vs `app/` layout mismatch (see the Blockers note).
+- **Next step:** Phase 1 Step 3: run `uv run backend` (creates `.venv`), learn venv/pyproject, decide on the linter (TD-016).

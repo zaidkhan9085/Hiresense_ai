@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Secrets and environment (commit .env.example only)
+.env
+.env.*
+!.env.example
+
+# Uploaded files, generated data, model caches
+uploads/
+data/*
+!data/synthetic/
+models/
+.cache/
+
+# Node / Next.js (Phase 7)
+node_modules/
+.next/
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
