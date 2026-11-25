@@ -46,7 +46,7 @@ Estimates assume about 14 hours per week. Do not start a phase until the previou
 - [x] `backend/` created with `uv init` (`pyproject.toml`, `.python-version` = 3.12, `src/backend/` package) and a root `.gitignore` covering `.venv`, `.env`, `__pycache__`, uploads and data outputs. (The `.venv` is not created yet; `uv sync` / `uv run` will create it.)
 - [ ] Fundamentals practised in project-relevant code: types, collections, comprehensions, functions, dataclasses, classes/OOP, exceptions, modules/packages, file I/O with `pathlib`, an intro to typing/`Protocol`, and an intro to `async`.
 - [ ] A small pure-Python module (no web framework), such as a plain-text synthetic resume → `dataclass` parser, with pytest tests that the developer wrote with guidance.
-- [ ] The linter/formatter is decided (TD-016).
+- [x] The linter/formatter is decided (TD-016: Ruff). pytest 9.2.0 + Ruff 0.17.6 are dev dependencies; `.venv` and `uv.lock` were created by `uv run`.
 - [ ] The phase quiz and an independent task are recorded in `LEARNING_LOG.md`.
 
 **Phase 2 — FastAPI fundamentals**
@@ -168,3 +168,23 @@ Estimates assume about 14 hours per week. Do not start a phase until the previou
 - **Commands run / results:** `git pull` on main → at merge commit 71cee70. No Python code was run.
 - **Known issues:** The `src/backend` vs `app/` layout mismatch (see the Blockers note).
 - **Next step:** Phase 1 Step 3: run `uv run backend` (creates `.venv`), learn venv/pyproject, decide on the linter (TD-016).
+
+### 2026-11-25 — Phase 1 — Step 3: tooling + Exercise 1 set up
+- **Done:** The developer ran `uv run backend` (created `.venv`, `uv.lock`) and `uv add --dev pytest ruff`. Claude added the Ruff/pytest config to `pyproject.toml`, the Exercise 1 skeleton `backend/src/backend/resume_parser.py` and `backend/tests/test_resume_parser.py`. TD-016 accepted.
+- **Files changed:** backend/pyproject.toml, backend/uv.lock (new), backend/src/backend/resume_parser.py (new), backend/tests/test_resume_parser.py (new), docs/{PROJECT_STATE,TECH_DECISIONS,LEARNING_LOG}.md
+- **Commands run / results:** `uv run backend` → "Hello from backend!" (Python 3.12.16); `uv run pytest -q` → 9 failed (expected: the skeleton raises NotImplementedError); `uv run ruff check .` → All checks passed; `ruff format --check` → 4 files already formatted.
+- **Known issues:** None. Nothing committed yet.
+- **Incomplete:** Exercise 1 is assigned to the developer.
+- **Next step:** The developer implements `parse_resume()` until `uv run pytest -v` passes, then Claude reviews it (learning-mentor review).
+
+### 2026-11-25 — Phase 1 — Exercise 1 implemented by Claude
+- **Done:** The developer switched the learning mode (Claude writes code; the developer reads and answers questions). The `learning-mentor` skill was updated. Claude implemented `parse_resume()` with the helpers `_parse_fields`, `_parse_skills` and `_parse_experience`.
+- **Files changed:** backend/src/backend/resume_parser.py, .claude/skills/learning-mentor/SKILL.md, docs/{LEARNING_LOG,PROJECT_STATE}.md
+- **Commands run / results:** `uv run pytest -v` → 9 passed; `uv run ruff check .` → All checks passed; `ruff format --check` → 4 files already formatted.
+- **Known issues:** None. Nothing committed since PR #2.
+- **Next step:** The developer answers the questions on the parser → commit the Phase 1 work through a PR → next fundamentals topic: classes/OOP + `Protocol` (a `ResumeSource` that reads `.txt` files from `data/synthetic/` with `pathlib`).
+
+### 2026-11-25 — Phase 1 — Exercise 1 questions answered, committed
+- **Done:** The developer answered Q1 🟡, Q2 ✅, Q3 🔴 (logged). The Phase 1 work was committed on `feat/phase-1-tooling-parser` and a PR was opened.
+- **Commands run / results:** `uv run pytest -q` → 9 passed (before the commit).
+- **Next step:** The developer merges the PR → next topic: classes/OOP + `Protocol` + `pathlib` (`ResumeSource` reading synthetic `.txt` resumes).

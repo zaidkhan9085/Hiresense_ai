@@ -8,8 +8,8 @@
 |---|---|---|
 | 0 | Not started | — |
 | 1 | Introduced | Explanation given |
-| 2 | Practised with help | The developer's code exists and runs (with hints) |
-| 3 | Independent | Implemented without or with minimal help |
+| 2 | Understands | Correctly explains or predicts code that Claude wrote (✅ answers) |
+| 3 | Independent | Implemented or modified it without help (optional in the current learning mode) |
 | 4 | Interview-ready | Explains trade-offs; passed the understanding checks and the phase quiz |
 
 ## Baseline (self-reported, 2026-11-25)
@@ -26,8 +26,8 @@
 ### Python
 | Concept | Level | Evidence / date |
 |---|---|---|
-| Environment: venv, pip/uv, pyproject.toml | 0 | — |
-| Core types, truthiness, `None` | 0 | — |
+| Environment: venv, pip/uv, pyproject.toml | 2 | 2026-11-25: ran uv init/run/add --dev with guidance; explained .venv vs uv.lock correctly |
+| Core types, truthiness, `None` | 2 | 2026-11-25: explained falsy None/"" correctly (Q2 ✅); `-> None` partial |
 | Lists/dicts/sets/tuples, comprehensions | 0 | — |
 | Functions: args, kwargs, keyword-only, defaults pitfalls | 0 | — |
 | Modules, packages, imports | 0 | — |
@@ -86,13 +86,16 @@ _None recorded yet. A concept appears here only at Level 3 or above, with eviden
 
 ## 3. Topics requiring revision
 
-_None yet._
+- `None` and return-type hints (Python has one `None`; functions without `return` return `None`)
+- What `.venv` contains and how `uv.lock` rebuilds it
+- `dict[key]` (KeyError) vs `dict.get(key)` (None)
+- `str.partition()` always returns a 3-tuple; tuple unpacking
 
 ## 4. Practical exercises
 
 | Date | Phase | Exercise | Difficulty | Status | Notes |
 |---|---|---|---|---|---|
-| — | — | — | — | — | — |
+| 2026-11-25 | 1 | Ex 1: `parse_resume()` → `Resume` dataclass (9 tests in `backend/tests/test_resume_parser.py`) | easy–medium | implemented by Claude | Learning mode changed: Claude writes, the developer answers questions. Questions pending |
 
 Status values: assigned · attempted · completed · reviewed.
 
@@ -100,7 +103,9 @@ Status values: assigned · attempted · completed · reviewed.
 
 | Date | Topic | Question | Assessment (✅/🟡/🔴) | Follow-up |
 |---|---|---|---|---|
-| — | — | — | — | — |
+| 2026-11-25 | Environment | Why commit `uv.lock` but not `.venv/`? | ✅ | — |
+| 2026-11-25 | Environment | What happens if `.venv/` is deleted and `uv run` is run? | 🟡 | Missing: uv rebuilds `.venv` from `uv.lock` |
+| 2026-11-25 | Types | What does `-> None` mean? | 🟡 | `None` is not `undefined`; it is like TS `: void`; hints are not enforced at runtime |
 
 ---
 
@@ -111,3 +116,13 @@ Status values: assigned · attempted · completed · reviewed.
 - **Concepts introduced:** None.
 - **Exercises:** None.
 - **Next learning focus (Phase 1):** Python environment (venv/pyproject compared with node_modules/package.json), core types and truthiness, comprehensions, functions and their pitfalls.
+
+### 2026-11-25 — Phase 1 — Environment and tooling
+- **Topics studied:** uv, `.venv`, `pyproject.toml`, `uv.lock`, `[project.scripts]`, dev dependencies.
+- **Understanding check:** Q1 ✅, Q2 🟡, Q3 🟡 (see the interview table).
+- **Exercise assigned:** Ex 1, `parse_resume()`.
+
+### 2026-11-25 — Learning mode changed
+- The developer chose to learn by reading Claude's code and answering questions (limited time). Claude implemented Ex 1 and explained it. The evidence scale Level 2 is now "Understands" (correct explanations/predictions).
+- **Concepts introduced (Level 1):** dicts and `.get()`, `str.partition/strip/lower/split/splitlines`, sets, dataclasses + `default_factory`, falsy values, `try/except` + `raise ... from`, private-by-convention `_functions`.
+- **Questions asked:** Q1 `d[k]` vs `d.get(k)` 🟡 (missed KeyError); Q2 why `if not name` covers None and "" ✅; Q3 `str.partition()` output 🔴.
