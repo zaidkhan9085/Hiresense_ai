@@ -23,7 +23,7 @@
 | TD-013 | Docker, Docker Compose, GitHub Actions | Accepted | 8 |
 | TD-014 | Monorepo with a feature-module backend layout | Proposed | 2 |
 | TD-015 | uv for Python install, venv and dependencies | Accepted | 1 |
-| TD-016 | Linter/formatter | Open | 1 |
+| TD-016 | Ruff for linting and formatting | Accepted | 1 |
 | TD-017 | Local PostgreSQL: Homebrew vs Docker | Open | 3 |
 | TD-018 | SQLAlchemy sync vs async driver | Open | 3 |
 | TD-019 | Hosting: AWS vs VPS | Open | 8 |
@@ -141,8 +141,12 @@ _TD-015 was decided on 2026-11-25. It is kept below in its original position, wi
 - **Verified:** `uv 0.13.10`; `uv python install 3.12` → CPython 3.12.16 at `~/.local/share/uv/python/`. The system Python 3.9.6 is left untouched.
 - **Status:** Accepted.
 
-### TD-016 — Linter/formatter (Phase 1)
-- **Options:** Ruff (lint and format in one fast tool); Black + isort + flake8; plus optional mypy or pyright for type checking.
+### TD-016 — Ruff for linting and formatting (Phase 1) — Accepted 2026-11-25
+- **Decision:** Ruff 0.17.6 as a dev dependency (`uv add --dev ruff`), configured in `backend/pyproject.toml` (line length 100, rules E/F/I/UP/B). Commands: `uv run ruff check .`, `uv run ruff format .`.
+- **Reason:** One fast tool replaces Black + isort + flake8 (the Python equivalent of ESLint + Prettier). It is the current industry default.
+- **Alternatives:** Black + isort + flake8; Pylint.
+- **Trade-offs:** No type checking. mypy/pyright can be considered later as a separate decision.
+- **Status:** Accepted.
 
 ### TD-017 — Local PostgreSQL: Homebrew vs Docker (Phase 3)
 - **Context:** `psql` is available through Homebrew. Docker is not installed, and Docker is scheduled for Phase 8.
