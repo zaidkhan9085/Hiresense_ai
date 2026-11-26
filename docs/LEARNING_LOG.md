@@ -31,9 +31,9 @@
 | Lists/dicts/sets/tuples, comprehensions | 0 | — |
 | Functions: args, kwargs, keyword-only, defaults pitfalls | 0 | — |
 | Modules, packages, imports | 0 | — |
-| Exceptions: try/except/else/finally, custom exceptions | 0 | — |
-| Classes, OOP, dataclasses, dunder methods | 0 | — |
-| Type hints, `Protocol`, generics basics | 0 | — |
+| Exceptions: try/except/else/finally, custom exceptions | 2 | 2026-11-26: predicted collect-and-continue behaviour correctly and tested it with bad.txt (Q3 ✅) |
+| Classes, OOP, dataclasses, dunder methods | 1 | 2026-11-26: introduced; `self` question 🔴 |
+| Type hints, `Protocol`, generics basics | 1 | 2026-11-26: Protocol introduced; Q2 🟡 |
 | Iterators, generators, `yield` | 0 | — |
 | Decorators | 0 | — |
 | Context managers (`with`) | 0 | — |
@@ -90,6 +90,8 @@ _None recorded yet. A concept appears here only at Level 3 or above, with eviden
 - What `.venv` contains and how `uv.lock` rebuilds it
 - `dict[key]` (KeyError) vs `dict.get(key)` (None)
 - `str.partition()` always returns a 3-tuple; tuple unpacking
+- `self` is passed automatically as the first argument of methods (TypeError if it is missing)
+- Structural typing: `Protocol` vs TS `interface` vs Java `implements`
 
 ## 4. Practical exercises
 
@@ -126,3 +128,7 @@ Status values: assigned · attempted · completed · reviewed.
 - The developer chose to learn by reading Claude's code and answering questions (limited time). Claude implemented Ex 1 and explained it. The evidence scale Level 2 is now "Understands" (correct explanations/predictions).
 - **Concepts introduced (Level 1):** dicts and `.get()`, `str.partition/strip/lower/split/splitlines`, sets, dataclasses + `default_factory`, falsy values, `try/except` + `raise ... from`, private-by-convention `_functions`.
 - **Questions asked:** Q1 `d[k]` vs `d.get(k)` 🟡 (missed KeyError); Q2 why `if not name` covers None and "" ✅; Q3 `str.partition()` output 🔴.
+
+### 2026-11-26 — Phase 1 — Classes, Protocol, pathlib
+- **Concepts introduced (Level 1):** `class`, `__init__`, `self`; `typing.Protocol` (structural interface, like a TS `interface`); `@dataclass(frozen=True)`; `pathlib.Path` (`/`, `glob`, `read_text`, `is_dir`, `parents`); the pytest `tmp_path` fixture; collect-errors-and-continue batch processing.
+- **Questions asked:** Q1 method without `self` → 🔴 (answered FileNotFoundError; actual: TypeError "takes 0 positional arguments but 1 was given"). Q2 why InMemoryResumeSource fits the Protocol → 🟡 ("because of interface"; missing: structural typing, matching method shape, no `implements`, checked only by type checkers). Q3 bad file in the batch → ✅ (no crash, error recorded). The developer tested it with an empty `bad.txt`.
