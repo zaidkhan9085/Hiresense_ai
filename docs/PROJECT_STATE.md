@@ -195,3 +195,8 @@ Estimates assume about 14 hours per week. Do not start a phase until the previou
 - **Commands run / results:** `uv run pytest -v` → 14 passed; `uv run ruff check .` → All checks passed; `ruff format --check` → 6 files already formatted.
 - **Known issues:** None. Not committed yet.
 - **Next step:** The developer answers the 3 questions → commit + PR → next topic: functions in depth (`*args`/`**kwargs`, keyword-only args), comprehensions, and an intro to `async`.
+
+### 2026-11-26 — Phase 1 — ResumeSource committed (PR #4)
+- **Done:** The developer answered Q1 🔴, Q2 🟡, Q3 ✅ (logged). The developer removed their empty test file `data/synthetic/resumes/bad.txt` themselves before the commit. Committed on `feat/phase-1-resume-source` and opened PR #4. The tests were run after the commit (a script step was skipped), and this entry was added in a follow-up commit.
+- **Commands run / results:** `uv run pytest -q` → 14 passed; `ruff check` → passed; `ruff format --check` → clean.
+- **Next step:** The developer merges PR #4 → next topic: functions in depth (`*args`/`**kwargs`, keyword-only args) and comprehensions.
